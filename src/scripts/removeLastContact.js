@@ -5,7 +5,10 @@ import { PATH_DB } from '../constants/contacts.js';
 export const removeLastContact = async () => {
   const currentContacts = await fs.readFile(PATH_DB, 'utf8');
   const arrayContacts = JSON.parse(currentContacts);
-
+  if (arrayContacts.length === 0) {
+    console.log('Контактів не знайдено');
+    return;
+  }
   arrayContacts.pop();
   await fs.writeFile(PATH_DB, JSON.stringify(arrayContacts), 'utf8');
 };
